@@ -12,6 +12,7 @@ class WizardTest {
     @Before
     fun setUp() {
         evilWizard = Wizard("Evil Wizard", 30, 10)
+
     }
 
     @Test
@@ -31,6 +32,25 @@ class WizardTest {
         assertEquals(0, damageDealt)
 
         assertEquals(5, evilWizard.mana) // mana still is 5
+    }
+
+    @Test
+    fun castSpell_frostbite_successful() {
+        val damageDealt = evilWizard.castSpell("Frostbite")
+
+        assertEquals(20, damageDealt) // spellPower of 5 * 2 = 10
+
+        assertEquals(25, evilWizard.mana) // mana of 30 - 5 = 25
+    }
+
+    @Test
+    fun castSpell_frostbite_unsuccessful() {
+        evilWizard.mana = 2 // Evil Wizard does not have enough mana to cast "Frostbite"
+        val damageDealt = evilWizard.castSpell("Frostbite")
+
+        assertEquals(0, damageDealt)
+
+        assertEquals(2, evilWizard.mana) // mana still is 2
     }
 }
 
